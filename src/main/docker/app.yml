@@ -1,0 +1,16 @@
+version: '2'
+services:
+  jeetp-app:
+    image: jeetp
+    environment:
+      - _JAVA_OPTIONS=-Xmx512m -Xms256m
+      - SPRING_PROFILES_ACTIVE=prod,swagger
+      - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
+      - SPRING_DATASOURCE_URL=jdbc:mysql://jeetp-mysql:3306/jeetp?useUnicode=true&characterEncoding=utf8&useSSL=false&createDatabaseIfNotExist=true
+      - JHIPSTER_SLEEP=30 # gives time for other services to boot before the application
+    ports:
+      - 8080:8080
+  jeetp-mysql:
+    extends:
+      file: mysql.yml
+      service: jeetp-mysql
